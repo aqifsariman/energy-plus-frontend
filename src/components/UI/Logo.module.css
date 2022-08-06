@@ -1,0 +1,14 @@
+.logoWrapper{
+    display: flex;
+    justify-content: center;
+    padding:50px;
+    }
+
+.logoWrapper h1{
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+.logoWrapper h2{
+    color: #1f6361;
+}

@@ -1,0 +1,46 @@
+body{
+    background-color: #141414;
+}
+
+.invalid{
+    border-bottom-color: red !important;
+    background-color: rgba(163, 8, 8, 0.382) !important;
+}
+
+.invalid-message{
+    font-size: 25px;
+    color: rgb(163, 8, 8);
+    margin-top:5px;
+}
+
+.invalid-message ul {
+    margin-inline-start: -20px ;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+}
+
+.links a {
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    cursor: pointer;
+}
+
+.links a:hover{
+    color: #1f6361
+}
+
+.header-message{
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.disabled{
+    cursor: not-allowed !important;
+    pointer-events: none;
+    opacity: 0.6;
+}

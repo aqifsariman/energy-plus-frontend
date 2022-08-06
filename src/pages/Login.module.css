@@ -1,0 +1,25 @@
+.links {
+    display: flex;
+    justify-content: space-around;
+}
+
+.links a{
+    margin:5px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-family: 'Raleway', sans-sarif;
+}
+
+.links a:hover{
+    color: #1f6361
+}
+
+.invalid{
+    color: #D61C4E;
+}
+.disabled{
+    cursor: not-allowed !important;
+    pointer-events: none;
+    opacity: 0.6;
+}

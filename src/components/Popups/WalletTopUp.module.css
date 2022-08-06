@@ -1,0 +1,33 @@
+.header{
+    text-align: center;
+}
+
+.product{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.amount{
+    font-weight: bolder;
+    font-size: 20px;
+    border-radius: 10px;
+    border:none;
+    padding:10px;
+    background-color: #1f6361;
+    color: white;
+    cursor: pointer;
+}
+
+.amount:hover{
+    opacity: 0.5;
+}
+
+.close{
+    cursor: pointer;
+    position: absolute;
+    bottom:290px;
+    right:10px;
+    background:transparent;
+    border: none;
+}

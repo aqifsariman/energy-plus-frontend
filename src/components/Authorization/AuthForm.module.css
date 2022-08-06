@@ -1,0 +1,49 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    margin:20px;
+}
+
+
+.form input{
+    margin-top:20px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background-color: #35363a;
+    color:white;
+    font-size: 20px;
+    padding:10px;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+.form input::placeholder{
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+}
+
+.form label{
+    text-align: left;
+    color: white;
+}
+
+.form button{
+    margin-top:15px !important;
+    width: 85%;
+    height:40px;
+    border-radius: 25px;
+    margin:auto;
+    background-color: #1f6361;
+    font-size: large;
+    color: white;
+    border:none;
+    cursor: pointer;
+}
+
+.form button:hover{
+    background-color: rgb(73, 141, 118);
+    font-weight: bold;
+}

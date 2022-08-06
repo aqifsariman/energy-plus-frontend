@@ -1,0 +1,58 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  font-size: 15px;
+}
+
+.selector {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form input {
+    font-family: 'Raleway', sans-serif;
+    color: black;
+    font-weight: bold;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    font-size: 20px;
+}
+
+.selector select {
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 15px;
+  font-size: 10px;
+}
+
+label {
+  color: black !important;
+  font-weight: bolder;
+
+}
+
+.close{ 
+    width: 10px !important;
+    position: absolute;
+    right: 25px;
+    bottom: 365px;
+    background-color: transparent !important;
+    cursor: pointer;
+}
+.form button{
+    width:50%;
+    height: 40px;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: black;
+    color: white;
+}

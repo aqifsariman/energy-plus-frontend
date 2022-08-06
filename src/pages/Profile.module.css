@@ -1,0 +1,79 @@
+.message {
+  font-family: 'Raleway', sans-serif;
+  width: 90%;
+  color: white;
+  margin: auto;
+  text-align: center;
+}
+
+.profile-details {
+  background-color: #1b1a17;
+  max-width: 90%;
+  margin: auto;
+  border-radius: 20px;
+  padding: 15px;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.profile-details h1 {
+  font-family: 'Raleway', sans-serif;
+}
+
+.logout {
+  display: flex;
+  justify-content: center;
+}
+
+.logout button {
+  background-color: #d61c4e;
+  width: 90%;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  margin: auto;
+  padding: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.logout button:hover {
+  background-color: #b25068;
+  color: black;
+}
+
+.indiv-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.indiv-details-user {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+}
+.indiv-details-user button {
+  background-color: transparent;
+  font-size: 40px;
+  color: #1f6361;
+  border: none;
+  cursor: pointer;
+}
+
+.photo {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.indiv-details button {
+  background-color: transparent;
+  font-size: 40px;
+  color: #1f6361;
+  border: none;
+  cursor: pointer;
+}

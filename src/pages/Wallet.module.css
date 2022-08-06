@@ -1,0 +1,67 @@
+*{
+    font-family: 'Raleway', sans-serif;
+}
+
+.header{
+    color: white;
+    text-align: center;
+}
+
+.profile-details {
+  background-color: #1b1a17;
+  max-width: 90%;
+  margin: auto;
+  border-radius: 20px;
+  padding: 15px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.indiv-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.indiv-details button {
+  background-color: transparent;
+  font-size: 40px;
+  color: #1f6361;
+  border: none;
+  cursor: pointer;
+}
+
+
+.card{
+  width:300px;
+  height: 200px;
+  background-color: #151515;
+  margin: auto;
+  border-radius: 15px;
+  color: white;
+  font-weight: bold;
+}
+
+.card p{
+  padding: 10px;
+  margin: auto;
+  }
+
+  .card svg {
+    background-color:rgb(180 164 113);
+    border-radius: 10px;
+    width: 50px;
+    height:50px;
+    margin-left: 20px;
+    margin-top: 40px;
+  }
+
+  .name-logo{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .name-logo p{
+    margin: 0;
+  }

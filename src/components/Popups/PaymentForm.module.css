@@ -1,0 +1,100 @@
+.formGroup {
+  margin: 20px;
+  padding: 20px;
+  border-style: none;
+  background-color: #35363a;
+  will-change: opacity, transform;
+  box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 #829fff;
+  border-radius: 20px;
+}
+
+.formRow {
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.StripeElement--webkit-autofill {
+  background: transparent !important;
+}
+
+.stripeElement {
+  width: 100%;
+  padding: 11px 15px 11px 0;
+}
+
+.button {
+  display: block;
+  font-size: 16px;
+  width: calc(100% - 30px);
+  height: 40px;
+  margin: 40px 15px 0;
+  background-color: #1f6361;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 100ms ease-in-out;
+  will-change: transform, background-color, box-shadow;
+  border: none;
+}
+
+button:active {
+  background-color: #1f6361;
+  box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 #e298d8;
+  transform: scale(0.99);
+}
+
+h1,
+h3 {
+  text-align: center;
+}
+
+.amount-button {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.amount-button button {
+  background-color: #1f6361;
+  font-size: 20px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.amount-button button:hover {
+  opacity: 0.5;
+}
+.active {
+  background-color: #40c4c0 !important;
+  color: black !important;
+  font-weight: bolder;
+}
+
+.payment {
+  text-align: center;
+}
+
+.button-disabled {
+  display: block;
+  font-size: 16px;
+  width: calc(100% - 30px);
+  height: 40px;
+  margin: 40px 15px 0;
+  background-color: #1f6361;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  pointer-events: none;
+  opacity: 0.6;
+}

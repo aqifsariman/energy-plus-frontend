@@ -1,0 +1,65 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    font-size: 15px;
+}
+
+.form input {
+    font-family: 'Raleway', sans-serif;
+    color: black;
+    font-weight: bold;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.close{
+    width: 10px !important;
+    position: fixed;
+    right: 25px;
+    bottom: 390px;
+    background-color: transparent !important;
+    cursor: pointer;
+}
+.form button{
+    width:50%;
+    height: 40px;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: black;
+    color: white;
+}
+
+.fieldset{
+    margin-top: 10px; 
+}
+
+.expiry{
+    font-weight: bolder !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.error-message{
+    color: #d61c4e;
+    font-weight: bolder;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.disabled{
+    cursor: not-allowed !important;
+    pointer-events: none;
+    opacity: 0.4;
+}

@@ -1,0 +1,64 @@
+.map-container {
+  width: 90%;
+  height: 90vh;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 5;
+  position: relative;
+  bottom: 85vh;
+  margin-right: 7%;
+}
+
+.button-group button {
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: #141414;
+  color: white;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.search button{
+  color: white;
+  font-size: 17px;
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.information{
+  display: flex;
+  color: white;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.information h3{
+  font-family: 'Raleway', sans-serif;
+  margin-right: 10px;
+  font-weight: bolder;
+}
+
+.inputPlaces {
+  font-size: 35px;
+  border: none;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+}
