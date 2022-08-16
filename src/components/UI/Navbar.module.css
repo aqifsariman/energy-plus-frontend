@@ -4,7 +4,7 @@
     bottom: 0;
     justify-content: space-evenly;
     width: 100%;
-    background-color: #1B1A17;
+    background-color: transparent
 }
 
 .navbar ul{
@@ -18,9 +18,12 @@
 .navbar li {
     margin: 5px;
     padding: 5px;
+    height: 20px;
+    transition: height 500ms ease-in-out;
 }
 
 .navbar li:hover{
-    background-color:darkgrey;
-    border-radius: 10px;
+    height: 50px;
+    transition: height 500ms ease-in-out;
+    
 }

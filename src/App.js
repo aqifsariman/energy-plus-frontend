@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Wallet from './pages/Wallet';
 import Transactions from './pages/Transactions';
-
 import React from 'react';
 
 const App = () => {

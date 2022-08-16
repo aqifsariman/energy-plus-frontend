@@ -21,19 +21,9 @@
     width: 10px !important;
     position: fixed;
     right: 25px;
-    bottom: 390px;
+    bottom: 470px;
     background-color: transparent !important;
     cursor: pointer;
-}
-.form button{
-    width:50%;
-    height: 40px;
-    margin: auto;
-    margin-top: 15px;
-    border-radius: 20px;
-    border: none;
-    background-color: black;
-    color: white;
 }
 
 .fieldset{

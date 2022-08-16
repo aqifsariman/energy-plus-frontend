@@ -1,28 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import React, { Fragment, useEffect, useState } from 'react';
 import styles from './PaymentForm.module.css';
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
-
-const cardOptions = {
-  iconStyle: 'solid',
-  style: {
-    base: {
-      iconColor: '#c4f0ff',
-      color: '#fff',
-      fontWeight: 500,
-      fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-      fontSize: '16px',
-      fontSmoothing: 'antialiased',
-      ':-webkit-autofill': { color: '#fce883' },
-      '::placeholder': { color: '#87bbfd' },
-    },
-    invalid: {
-      iconColor: '#ffc7ee',
-      color: '#ffc7ee',
-    },
-  },
-};
 
 const PaymentForm = (props) => {
   const userId = localStorage.getItem('id');
@@ -35,9 +14,6 @@ const PaymentForm = (props) => {
   const [enableTopUp, setEnableTopUp] = useState(false);
   const [customerId, setCustomerId] = useState('');
   const [message, setMessage] = useState('Choose your amount to top up.');
-
-  const stripe = useStripe();
-  const elements = useElements();
 
   const amountChosenHandler = (event) => {
     setAmountValue(event.target.value);
@@ -57,7 +33,6 @@ const PaymentForm = (props) => {
     }
   };
 
-  // USE EFFECT FOR CUSTOMER ID RETRIEVAL
   useEffect(() => {
     axios.get(`/wallet-details/${userId}`).then((response) => {
       setCustomerId(response.data[0].customerId);
@@ -67,31 +42,28 @@ const PaymentForm = (props) => {
   // ONSUBMIT
   const submitHandler = async (event) => {
     setMessage('Loading...');
-    event.preventDefault();
-    const customerName = localStorage.getItem('username');
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
-    });
-    if (!error) {
-      try {
-        const { id } = paymentMethod;
-        const response = await axios.post(`/payment/${customerName}`, {
-          customer: customerId,
-          amount: Number(amountValue),
-          id,
-        });
-        if (response.data.success) {
-          setSuccess(true);
-          setMessage('You have topped up successfully.');
-        }
-        console.log(response.data);
-      } catch (error) {
-        console.log('Error', error);
-      }
-    } else {
-      console.log(error.message);
-    }
+    axios
+      .get(`/payment-method/${customerId}`)
+      .then((response) => {
+        console.log('Running Payment saved card');
+        console.log(response);
+        axios
+          .post(`/payment-saved-card`, {
+            customer: customerId,
+            amount: Number(amountValue),
+            currency: 'sgd',
+            payment_method: response.data.payment.data[0].id,
+          })
+          .then((resp) => {
+            console.log('Existing card', resp);
+
+            if (response.data.success) {
+              setSuccess(true);
+              setMessage('You have topped up successfully.');
+            }
+          });
+      })
+      .catch((error) => console.log(error));
     setTimeout(() => {
       setMessage('Top up success.');
       setSuccess(false);
@@ -132,14 +104,11 @@ const PaymentForm = (props) => {
                 </button>
               </div>
               <div className={styles.formRow}>
-                <CardElement
-                  options={cardOptions}
-                  className={styles.stripeElement}
-                />
                 <button
                   className={
                     enableTopUp ? styles['button'] : styles['button-disabled']
                   }
+                  onSubmit={submitHandler}
                   type="submit"
                 >
                   Top Up

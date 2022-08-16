@@ -98,3 +98,17 @@ h3 {
   pointer-events: none;
   opacity: 0.6;
 }
+
+.saved-card{
+  font-size: 15px;
+  margin-top: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.saved-card:hover{
+  opacity: 0.5;
+}

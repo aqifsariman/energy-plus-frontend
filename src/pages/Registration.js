@@ -17,7 +17,8 @@ const Registration = () => {
   const [confirmEmailValid, setConfirmEmailValid] = useState();
   const [passwordValid, setPasswordValid] = useState();
   const [confirmPasswordValid, setConfirmPasswordValid] = useState();
-  const [registrationSuccess, setRegistraionSuccess] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
 
   let formIsValid = false;
 
@@ -82,7 +83,6 @@ const Registration = () => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(usernameInput);
     axios
       .post('/register', {
         username: usernameInput,
@@ -90,8 +90,17 @@ const Registration = () => {
         password: passwordInput,
       })
       .then((response) => {
-        console.log('Submitted', response.config.data);
-        setRegistraionSuccess(true);
+        console.log(response);
+        if (response.data.errors[0].path === 'email') {
+          setRegistrationSuccess(false);
+          setErrorMessage('Email address already exist.');
+        } else if (response.data.errors[0].path === 'username') {
+          setRegistrationSuccess(false);
+          setErrorMessage('Username already exist.');
+        } else {
+          console.log('Submitted', response.config.data);
+          setRegistrationSuccess(true);
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -173,6 +182,9 @@ const Registration = () => {
           >
             Register
           </button>
+          {!registrationSuccess && (
+            <h3 className={styles.error}>{errorMessage}</h3>
+          )}
           <div className={styles.links}>
             <a href="/login">
               <h3>Already a member</h3>

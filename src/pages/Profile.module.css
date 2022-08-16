@@ -23,6 +23,7 @@
 .logout {
   display: flex;
   justify-content: center;
+  text-decoration: none;
 }
 
 .logout button {
@@ -36,6 +37,7 @@
   cursor: pointer;
   margin-top: 20px;
   margin-bottom: 20px;
+  font-weight: bolder;
 }
 
 .logout button:hover {
@@ -55,6 +57,7 @@
   justify-content: flex-end;
   font-size: 14px;
 }
+
 .indiv-details-user button {
   background-color: transparent;
   font-size: 40px;
@@ -63,11 +66,27 @@
   cursor: pointer;
 }
 
+.edit {
+  font-size: 13px;
+  color: black;
+  font-weight: bolder;
+  margin-top: 150%;
+  background-color: transparent;
+}
+
 .photo {
   width: 55px;
   height: 55px;
   border-radius: 50%;
+  text-align: center;
   background-color: white;
+}
+
+.avatar {
+  position: relative;
+  top:4px;
+  max-width: 50px;
+  max-height: 50px;
 }
 
 .indiv-details button {

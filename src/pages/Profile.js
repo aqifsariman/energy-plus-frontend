@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Redirect, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Switch from 'react-switch';
@@ -5,6 +6,7 @@ import Logo from '../components/UI/Logo';
 import styles from './Profile.module.css';
 import AddVehicle from '../components/Popups/AddVehicle';
 import AddUserDetails from '../components/Popups/AddUserDetails';
+import AddAvatar from '../components/Popups/AddAvatar';
 import Navbar from '../components/UI/Navbar';
 import axios from 'axios';
 
@@ -12,11 +14,13 @@ const Profile = () => {
   const [addCarStatus, setAddCarStatus] = useState(false);
   const [isLoggedOut, setIsLoggedOut] = useState(false);
   const [addDetailsStatus, setAddDetailsStatus] = useState(false);
+  const [addAvatarStatus, setAddAvatarStatus] = useState(false);
 
   // PROFILE STATES
   const [nickname, setNickname] = useState('');
   const [address, setAddress] = useState('');
   const [handphone, setHandphone] = useState('');
+  const [avatar, setAvatar] = useState('');
 
   // CAR STATES
   const [brand, setBrand] = useState('');
@@ -34,8 +38,13 @@ const Profile = () => {
     console.log('Closing');
     setAddDetailsStatus(false);
     setAddCarStatus(false);
+    setAddAvatarStatus(false);
   };
 
+  const avatarHandler = () => {
+    console.log('clicked');
+    setAddAvatarStatus(true);
+  };
   const walletHandler = (event) => {
     setCheckedWallet(event);
   };
@@ -68,6 +77,14 @@ const Profile = () => {
 
   // AXIOS REQUESTS
   useEffect(() => {
+    axios
+      .get(`/avatar/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setAvatar(response.data[0].link);
+      })
+      .catch((error) => console.log(error));
+
     axios.get(`/profile/${id}/get-details`).then((response) => {
       setNickname(response.data[0].nickname);
       setAddress(response.data[0].address);
@@ -90,13 +107,14 @@ const Profile = () => {
     } else {
       setValidVehicle(true);
     }
-  }, []);
+  });
 
   return (
     <div>
       {isLoggedOut && <Redirect to="/login" />}
       {addCarStatus && <AddVehicle onClose={closeHandler} />}
       {addDetailsStatus && <AddUserDetails onClose={closeHandler} />}
+      {addAvatarStatus && <AddAvatar onClose={closeHandler} />}
       <Logo />
       <div className={styles.message}>
         <h1>Welcome {capitalizeUsername}</h1>
@@ -105,7 +123,14 @@ const Profile = () => {
         <h1>Profile</h1>
         <div className={styles['indiv-details']}>
           <p>Avatars</p>
-          <span className={styles.photo}></span>
+          <div className={styles.photo}>
+            {avatar !== '' && (
+              <img src={avatar} alt={avatar} className={styles.avatar} />
+            )}
+            <button onClick={avatarHandler}>
+              <p className={styles.edit}>Edit</p>
+            </button>
+          </div>
         </div>
         <div className={styles['indiv-details']}>
           <p>Nickname</p>
@@ -163,7 +188,9 @@ const Profile = () => {
         </div>
       </div>
       <Link className={styles.logout}>
-        <button onClick={logoutHandler}>Logout</button>
+        <button onClick={logoutHandler} type="button">
+          Logout
+        </button>
       </Link>
       <Navbar />
     </div>

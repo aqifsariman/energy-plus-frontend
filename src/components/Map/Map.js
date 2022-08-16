@@ -3,11 +3,12 @@
 import {
   GoogleMap,
   Marker,
-  useLoadScript,
   Autocomplete,
   DirectionsRenderer,
   useJsApiLoader,
+  InfoWindow,
 } from '@react-google-maps/api';
+
 import styles from './Map.module.css';
 import { useState, Fragment, useRef, useCallback, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,6 +31,13 @@ const Map = (props) => {
   const [duration, setDuration] = useState('');
   const [libraries] = useState(['places']);
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
+  const [chargingPorts, setChargingPorts] = useState([]);
+  const [activeWindow, setActiveWindow] = useState('');
+  const [distDuration, setDistDuration] = useState(false);
+
+  const originRef = useRef();
+  const destinationRef = useRef();
+  const mapRef = useRef();
 
   // RENDERS INITIAL USER LOCATION ON PAGE RENDER
   useEffect(() => {
@@ -46,6 +54,11 @@ const Map = (props) => {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
+    });
+
+    axios.get('get-charging-ports').then((response) => {
+      console.log(response.data);
+      setChargingPorts(response.data);
     });
   }, []);
 
@@ -66,10 +79,6 @@ const Map = (props) => {
     setSearchLocation(event.target.value);
   };
 
-  const originRef = useRef();
-  const destinationRef = useRef();
-
-  const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
@@ -115,6 +124,26 @@ const Map = (props) => {
     return <p>Loading...</p>;
   }
 
+  const markerHandler = (marker) => {
+    if (marker === activeWindow) {
+      return;
+    }
+    setActiveWindow(marker);
+  };
+
+  const dblMarkerHandeler = async (lat, lng) => {
+    destinationRef.current = { lat, lng };
+    const directionsService = new google.maps.DirectionsService();
+    const results = await directionsService.route({
+      origin: originRef.current,
+      destination: destinationRef.current,
+      travelMode: google.maps.TravelMode.DRIVING,
+    });
+    setDirectionResults(results);
+    setDistance(results.routes[0].legs[0].distance.text);
+    setDuration(results.routes[0].legs[0].duration.text);
+  };
+
   return (
     <Fragment>
       <form className={styles.search} onSubmit={searchHandler}>
@@ -138,7 +167,7 @@ const Map = (props) => {
         </div>
       )}
       <GoogleMap
-        zoom={15}
+        zoom={13}
         center={defaultLocation ? initialPosition : marker}
         mapContainerClassName={styles['map-container']}
         options={{
@@ -154,6 +183,39 @@ const Map = (props) => {
         {directionResults !== null && (
           <DirectionsRenderer directions={directionResults} />
         )}
+        {chargingPorts.map((marker) => (
+          <>
+            <Marker
+              key={marker.name}
+              position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
+              icon={{
+                url: '/EV.svg',
+                scaledSize: new window.google.maps.Size(80, 80),
+              }}
+              onClick={() => markerHandler(marker.name)}
+            />
+            {activeWindow === marker.name && (
+              <InfoWindow
+                key={Math.random()}
+                position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
+              >
+                <div className={styles.infoWindow}>
+                  <p>Name: {marker.name}</p>
+                  <p>Connector: {marker.connector}</p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      dblMarkerHandeler(Number(marker.lat), Number(marker.lng))
+                    }
+                    className={styles['info-button']}
+                  >
+                    Navigate
+                  </button>
+                </div>
+              </InfoWindow>
+            )}
+          </>
+        ))}
       </GoogleMap>
       <div className={styles['button-group']}>
         <button title="QR Code">

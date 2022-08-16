@@ -26,7 +26,7 @@
 .close{
     cursor: pointer;
     position: absolute;
-    bottom:290px;
+    bottom:255px;
     right:10px;
     background:transparent;
     border: none;

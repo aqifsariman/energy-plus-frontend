@@ -62,3 +62,27 @@
   text-align: center;
   cursor: pointer;
 }
+
+.infoWindow{
+  width: 250px;
+  text-align: center;
+}
+
+.infoWindow p{
+  color: black;
+  font-size: 15px;
+  margin: auto;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.info-button{
+  cursor: pointer;
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  background-color: transparent;
+  border-width: 0.1px;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 2px;
+}

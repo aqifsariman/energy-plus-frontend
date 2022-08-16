@@ -6,8 +6,6 @@ import Modal from '../UI/Modal';
 import axios from 'axios';
 
 const AddCardDetails = (props) => {
-  const id = localStorage.getItem('id');
-
   // STATE MANAGEMENTS
   const [name, setName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
@@ -80,7 +78,6 @@ const AddCardDetails = (props) => {
         cvc,
       })
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           setSuccess(true);
           setMessage('You have added your card successfully.');
@@ -160,6 +157,7 @@ const AddCardDetails = (props) => {
           {validCVC === false && (
             <p className={styles['error-message']}>Invalid CVC</p>
           )}
+          <h3>Take note this will overwrite your previously saved card.</h3>
           <button type="submit">Save</button>
         </AuthForm>
       ) : (

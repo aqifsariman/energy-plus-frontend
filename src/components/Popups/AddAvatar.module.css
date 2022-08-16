@@ -1,0 +1,37 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    font-size: 15px;
+}
+
+.form input{
+    font-weight: bolder;
+
+}
+.upload:hover{
+    cursor: pointer;
+}
+
+.form button{
+    width:50%;
+    height: 40px;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.close{
+    width: 10px !important;
+    position: fixed;
+    right: 22px;
+    bottom: 156px;
+    background-color: transparent !important;
+    cursor: pointer;
+    border: none;
+}

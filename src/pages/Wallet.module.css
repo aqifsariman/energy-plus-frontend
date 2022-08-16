@@ -65,3 +65,9 @@
   .name-logo p{
     margin: 0;
   }
+
+.disabled{
+    cursor: not-allowed !important;
+    opacity: 0.6;
+    pointer-events: none;
+}

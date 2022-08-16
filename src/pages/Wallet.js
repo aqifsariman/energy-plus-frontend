@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useRef } from 'react';
 import styles from './Wallet.module.css';
 import AuthForm from '../components/Authorization/AuthForm';
 import InputForm from '../components/Authorization/InputForm';
@@ -17,6 +17,8 @@ const Wallet = () => {
   const [cardMonth, setCardMonth] = useState('XX');
   const [cardYear, setCardYear] = useState('XX');
   const [cardBrand, setCardBrand] = useState('XXXX');
+  const [cardAdded, setCardAdded] = useState();
+  const custBalance = useRef(0);
 
   const id = localStorage.getItem('id');
   const username = localStorage.getItem('username');
@@ -50,7 +52,6 @@ const Wallet = () => {
 
   // STEPPING UP STATES
   const retrieveNameHandler = (name) => {
-    console.log('name', name);
     setCardName(name);
   };
   const retrieveLastFourHandler = (number) => {
@@ -69,19 +70,29 @@ const Wallet = () => {
   useEffect(() => {
     axios.get(`/wallet-details/${id}`).then((response) => {
       if (response.data[0].customerId !== null) {
-        axios.get(`/payment/${response.data[0].customerId}`).then((res) => {
-          setCustomerBalance(Number(res.data.balance / 100));
-          setStripeCustomerId(response.data[0].customerId);
-        });
+        axios
+          .get(`/payment/${response.data[0].customerId}`)
+          .then((res) => {
+            console.log(res);
+            // setCustomerBalance(Number(res.data.balance / 100));
+            custBalance.current = Number(res.data.balance / 100);
+            setStripeCustomerId(response.data[0].customerId);
+          })
+          .catch((error) => console.log(error));
         axios
           .get(`/get-card/${response.data[0].customerId}`)
           .then((res) => {
-            if (res.data.message !== 'Found no card') {
+            console.log(res);
+            if (res.data.card !== false) {
               setCardName(res.data.name);
               setCardNumber(res.data.card);
               setCardMonth(res.data.month);
               setCardYear(res.data.year);
               setCardBrand(res.data.brand);
+              setCardAdded(true);
+            } else {
+              console.log('No card', res.data);
+              setCardAdded(false);
             }
           })
           .catch((error) => console.log(error));
@@ -96,24 +107,17 @@ const Wallet = () => {
               customerId: resp.data.customerId,
             });
             setStripeCustomerId(resp.data.customerId);
-            axios.get(`/get-card/${resp.data.customerId}`).then((res) => {
-              if (res.data.message !== 'Found no card') {
-                setCardName(res.data.name);
-                setCardNumber(res.data.card);
-                setCardMonth(res.data.month);
-                setCardYear(res.data.year);
-                setCardBrand(res.data.brand);
-              }
-            });
             axios.get(`/payment/${response.data[0].customerId}`).then((res) => {
-              setCustomerBalance(Number(res.data.balance / 100));
+              // setCustomerBalance(Number(res.data.balance / 100));
+              custBalance.current = Number(res.data.balance / 100);
             });
           })
           .catch((error) => console.log(error));
       }
     });
-  });
+  }, []);
 
+  console.log(custBalance);
   return (
     <Fragment>
       {topUpStatus && <WalletTopUp onClose={closeHandler} />}
@@ -134,11 +138,17 @@ const Wallet = () => {
       <div className={styles['profile-details']}>
         <h1>Balance</h1>
         <div className={styles['indiv-details']}>
-          <p>${customerBalance}</p>
+          <p>${custBalance.current}</p>
         </div>
         <div className={styles['indiv-details']}>
           <p>Add funds</p>
-          <button onClick={topUpHandler}>+</button>
+          <button
+            onClick={topUpHandler}
+            className={!cardAdded && styles.disabled}
+            title={!cardAdded && 'Card not added yet'}
+          >
+            +
+          </button>
         </div>
       </div>
       <div className={styles['profile-details']}>
