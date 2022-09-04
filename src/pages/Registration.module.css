@@ -50,3 +50,9 @@ body{
     font-size: 15px;
     font-weight: bolder;
 }
+
+.success{
+     color: #1f6361;
+    font-size: 15px;
+    font-weight: bolder;
+}

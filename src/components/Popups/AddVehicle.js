@@ -15,16 +15,24 @@ const AddVehicle = (props) => {
   const [license, setLicense] = useState('');
 
   const brandHandler = (event) => {
-    setBrand(event.target.value);
+    if (event.target.value !== '') {
+      setBrand(event.target.value);
+    }
   };
   const modelHandler = (event) => {
-    setModel(event.target.value);
+    if (event.target.value !== '') {
+      setModel(event.target.value);
+    }
   };
   const connectorHandler = (event) => {
-    setConnector(event.target.value);
+    if (event.target.value !== '') {
+      setConnector(event.target.value);
+    }
   };
   const licenseHandler = (event) => {
-    setLicense(event.target.value);
+    if (event.target.value !== '') {
+      setLicense(event.target.value);
+    }
   };
 
   const submitHandler = () => {

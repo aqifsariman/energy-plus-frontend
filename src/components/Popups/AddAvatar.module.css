@@ -1,37 +1,45 @@
 .form {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
     padding: 20px;
     font-size: 15px;
 }
 
 .form input{
     font-weight: bolder;
-
 }
-.upload:hover{
+
+.upload{
+    margin-bottom: 5px;
+}
+
+.form input:hover{
     cursor: pointer;
 }
 
-.form button{
-    width:50%;
-    height: 40px;
-    margin: auto;
-    margin-top: 15px;
-    border-radius: 20px;
+.submit{
+    width:20%;
+    height: 20px;
+    font-weight: bolder;
+    background-color: #1f6361;
+    border-radius: 10px;
     border: none;
-    background-color: black;
     color: white;
-    cursor: pointer;
 }
 
 .close{
     width: 10px !important;
     position: fixed;
     right: 22px;
-    bottom: 156px;
+    bottom: 80px;
     background-color: transparent !important;
     cursor: pointer;
     border: none;
+}
+
+.message{
+    color: black;
+    font-weight: bolder;
 }

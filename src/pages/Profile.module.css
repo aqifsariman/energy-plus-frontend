@@ -66,27 +66,23 @@
   cursor: pointer;
 }
 
-.edit {
-  font-size: 13px;
-  color: black;
-  font-weight: bolder;
-  margin-top: 150%;
-  background-color: transparent;
-}
-
 .photo {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
+  width: 53px;
+  height: 53px;
+  border-radius: 10%;
   text-align: center;
-  background-color: white;
+  background-color:white;
 }
 
 .avatar {
   position: relative;
-  top:4px;
+  top:2px;
   max-width: 50px;
   max-height: 50px;
+}
+
+.avatar:hover{
+  cursor: pointer;
 }
 
 .indiv-details button {
@@ -95,4 +91,11 @@
   color: #1f6361;
   border: none;
   cursor: pointer;
+}
+
+.upload{
+  font-size: 13px;
+  font-weight: bolder;
+  position: relative;
+  color: black;
 }

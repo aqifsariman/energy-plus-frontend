@@ -1,0 +1,60 @@
+.header {
+  color: white;
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-container h1 {
+  color: white;
+}
+
+.container {
+  margin-bottom: 5px;
+  width: 90%;
+  height: 50%;
+  background-color: #1b1a17;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container h2 {
+  color: white;
+}
+
+.battery {
+  width: 10%;
+  border-radius: 20px;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+}
+
+.charge {
+  background-color: #d61c4e;
+  width: 90%;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  margin: auto;
+  padding: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bolder;
+}
+
+.charge:hover {
+  background-color: #b25068;
+  color: black;
+}

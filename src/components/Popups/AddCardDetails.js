@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthForm from '../Authorization/AuthForm';
 import styles from './AddCardDetails.module.css';
 import CloseButton from '../UI/CloseButton';
@@ -66,6 +66,10 @@ const AddCardDetails = (props) => {
     }
   };
 
+  useEffect(() => {
+    console.log('Customer ID', props.retrieveCustomerId);
+  });
+
   const submitHandler = (event) => {
     console.log('Submitting');
     event.preventDefault();
@@ -78,6 +82,7 @@ const AddCardDetails = (props) => {
         cvc,
       })
       .then((response) => {
+        console.log(response);
         if (response.data.success) {
           setSuccess(true);
           setMessage('You have added your card successfully.');
@@ -94,7 +99,6 @@ const AddCardDetails = (props) => {
       props.onClose();
     }, 800);
   };
-
   return (
     <Modal>
       {!success ? (

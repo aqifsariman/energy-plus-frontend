@@ -4,21 +4,42 @@ import CloseButton from '../UI/CloseButton';
 import AuthForm from '../Authorization/AuthForm';
 import InputForm from '../Authorization/InputForm';
 import axios from 'axios';
-import { useRef, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const AddUserDetails = (props) => {
-  const [nickname, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [handphone, setHandpone] = useState('');
+  const [nickname, setNickname] = useState('Nickname');
+  const [address, setAddress] = useState('Address');
+  const [handphone, setHandphone] = useState('Handphone');
+
+  useEffect(() => {
+    axios.get(`/profile/${id}/get-details`).then((response) => {
+      if (
+        response.data[0].nickname !== null &&
+        response.data[0].address !== null &&
+        response.data[0].handphone !== null
+      ) {
+        setNickname(response.data[0].nickname);
+        setAddress(response.data[0].address);
+        setHandphone(response.data[0].handphone);
+      }
+    });
+  });
+  console.log(nickname);
 
   const nameHandler = (event) => {
-    setName(event.target.value);
+    if (event.target.value !== '') {
+      setNickname(event.target.value);
+    }
   };
   const addressHandler = (event) => {
-    setAddress(event.target.value);
+    if (event.target.value !== '') {
+      setAddress(event.target.value);
+    }
   };
   const handphoneHandler = (event) => {
-    setHandpone(event.target.value);
+    if (event.target.value !== '') {
+      setHandphone(event.target.value);
+    }
   };
 
   const id = localStorage.getItem('id');
@@ -31,7 +52,6 @@ const AddUserDetails = (props) => {
   const submitHandler = () => {
     axios.post(`/profile/${id}/user-details`, details);
   };
-
   return (
     <Modal>
       <AuthForm className={styles.form} onSubmit={submitHandler}>
@@ -41,21 +61,21 @@ const AddUserDetails = (props) => {
           name="nickname"
           onChange={nameHandler}
           type="text"
-          placeholder="Nickname"
+          placeholder={nickname}
         />
         <InputForm
           htmlFor="address"
           name="address"
           onChange={addressHandler}
           type="text"
-          placeholder="Adddress"
+          placeholder={address}
         />
         <InputForm
           htmlFor="handphone"
           name="handphone"
           onChange={handphoneHandler}
           type="number"
-          placeholder="Handphone"
+          placeholder={handphone}
         />
         <button type="submit">Save</button>
       </AuthForm>

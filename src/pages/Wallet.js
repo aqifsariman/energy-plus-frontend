@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState, useRef } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import styles from './Wallet.module.css';
 import AuthForm from '../components/Authorization/AuthForm';
 import InputForm from '../components/Authorization/InputForm';
@@ -18,7 +18,6 @@ const Wallet = () => {
   const [cardYear, setCardYear] = useState('XX');
   const [cardBrand, setCardBrand] = useState('XXXX');
   const [cardAdded, setCardAdded] = useState();
-  const custBalance = useRef(0);
 
   const id = localStorage.getItem('id');
   const username = localStorage.getItem('username');
@@ -67,22 +66,30 @@ const Wallet = () => {
     setCardBrand(brand);
   };
 
+  const getData = (data) => {
+    //! Getting state from component below
+    setCustomerBalance(data / 100);
+  };
+
   useEffect(() => {
     axios.get(`/wallet-details/${id}`).then((response) => {
-      if (response.data[0].customerId !== null) {
+      console.log(response);
+      if (response.data[0].customerId) {
         axios
           .get(`/payment/${response.data[0].customerId}`)
           .then((res) => {
             console.log(res);
-            // setCustomerBalance(Number(res.data.balance / 100));
-            custBalance.current = Number(res.data.balance / 100);
+            if (!res.data.balance) {
+              setCustomerBalance(0);
+            }
+            setCustomerBalance(Number(res.data.balance / 100));
+            console.log(res.data);
             setStripeCustomerId(response.data[0].customerId);
           })
           .catch((error) => console.log(error));
         axios
           .get(`/get-card/${response.data[0].customerId}`)
           .then((res) => {
-            console.log(res);
             if (res.data.card !== false) {
               setCardName(res.data.name);
               setCardNumber(res.data.card);
@@ -103,13 +110,13 @@ const Wallet = () => {
             name: username,
           })
           .then((resp) => {
+            console.log(resp.data);
             axios.post(`/wallet-details/${id}`, {
               customerId: resp.data.customerId,
             });
             setStripeCustomerId(resp.data.customerId);
             axios.get(`/payment/${response.data[0].customerId}`).then((res) => {
-              // setCustomerBalance(Number(res.data.balance / 100));
-              custBalance.current = Number(res.data.balance / 100);
+              setCustomerBalance(Number(res.data.balance / 100));
             });
           })
           .catch((error) => console.log(error));
@@ -117,10 +124,11 @@ const Wallet = () => {
     });
   }, []);
 
-  console.log(custBalance);
   return (
     <Fragment>
-      {topUpStatus && <WalletTopUp onClose={closeHandler} />}
+      {topUpStatus && (
+        <WalletTopUp onClose={closeHandler} onGetData={getData} />
+      )}
       {addCardStatus && (
         <AddCardDetails
           onClose={closeHandler}
@@ -138,7 +146,7 @@ const Wallet = () => {
       <div className={styles['profile-details']}>
         <h1>Balance</h1>
         <div className={styles['indiv-details']}>
-          <p>${custBalance.current}</p>
+          {isNaN(customerBalance) ? <p>$0</p> : <p>${customerBalance}</p>}
         </div>
         <div className={styles['indiv-details']}>
           <p>Add funds</p>

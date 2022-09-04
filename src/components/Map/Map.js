@@ -19,6 +19,7 @@ import {
   faSearchLocation,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import AddQRCode from '../Popups/AddQRCode';
 
 const Map = (props) => {
   // STATE MANAGEMENT
@@ -34,6 +35,7 @@ const Map = (props) => {
   const [chargingPorts, setChargingPorts] = useState([]);
   const [activeWindow, setActiveWindow] = useState('');
   const [distDuration, setDistDuration] = useState(false);
+  const [scanner, setScanner] = useState(false);
 
   const originRef = useRef();
   const destinationRef = useRef();
@@ -56,7 +58,7 @@ const Map = (props) => {
       };
     });
 
-    axios.get('get-charging-ports').then((response) => {
+    axios.get('/get-charging-ports').then((response) => {
       console.log(response.data);
       setChargingPorts(response.data);
     });
@@ -73,6 +75,15 @@ const Map = (props) => {
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
     });
+  };
+
+  const closeHandler = () => {
+    setScanner(false);
+  };
+
+  const scanQRCode = () => {
+    setScanner(true);
+    console.log('Scan QR Code');
   };
 
   const searchChangeHandler = (event) => {
@@ -166,6 +177,7 @@ const Map = (props) => {
           <h3>Duration: {duration}</h3>
         </div>
       )}
+      {scanner === true && <AddQRCode onClose={closeHandler} />}
       <GoogleMap
         zoom={13}
         center={defaultLocation ? initialPosition : marker}
@@ -218,7 +230,7 @@ const Map = (props) => {
         ))}
       </GoogleMap>
       <div className={styles['button-group']}>
-        <button title="QR Code">
+        <button title="QR Code" onClick={scanQRCode}>
           <FontAwesomeIcon icon={faQrcode} size="2x" />
         </button>
         <button title="Current Location" onClick={defaultLocationHandler}>

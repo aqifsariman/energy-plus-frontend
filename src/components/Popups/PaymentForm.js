@@ -41,6 +41,8 @@ const PaymentForm = (props) => {
 
   // ONSUBMIT
   const submitHandler = async (event) => {
+    event.preventDefault();
+    console.log('Topping up!');
     setMessage('Loading...');
     axios
       .get(`/payment-method/${customerId}`)
@@ -56,8 +58,9 @@ const PaymentForm = (props) => {
           })
           .then((resp) => {
             console.log('Existing card', resp);
-
-            if (response.data.success) {
+            //! Passing state up
+            props.onGetData(Number(resp.data.balance));
+            if (resp.data.success) {
               setSuccess(true);
               setMessage('You have topped up successfully.');
             }
@@ -68,7 +71,7 @@ const PaymentForm = (props) => {
       setMessage('Top up success.');
       setSuccess(false);
       props.onClose();
-    }, 800);
+    }, 3500);
   };
 
   return (
@@ -108,7 +111,6 @@ const PaymentForm = (props) => {
                   className={
                     enableTopUp ? styles['button'] : styles['button-disabled']
                   }
-                  onSubmit={submitHandler}
                   type="submit"
                 >
                   Top Up

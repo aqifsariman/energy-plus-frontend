@@ -80,7 +80,6 @@ const Profile = () => {
     axios
       .get(`/avatar/${id}`)
       .then((response) => {
-        console.log(response.data);
         setAvatar(response.data[0].link);
       })
       .catch((error) => console.log(error));
@@ -124,12 +123,20 @@ const Profile = () => {
         <div className={styles['indiv-details']}>
           <p>Avatars</p>
           <div className={styles.photo}>
-            {avatar !== '' && (
-              <img src={avatar} alt={avatar} className={styles.avatar} />
+            {avatar !== null ? (
+              <img
+                src={avatar}
+                alt={avatar}
+                className={styles.avatar}
+                onClick={avatarHandler}
+              />
+            ) : (
+              <button>
+                <p className={styles.upload} onClick={avatarHandler}>
+                  Upload
+                </p>
+              </button>
             )}
-            <button onClick={avatarHandler}>
-              <p className={styles.edit}>Edit</p>
-            </button>
           </div>
         </div>
         <div className={styles['indiv-details']}>

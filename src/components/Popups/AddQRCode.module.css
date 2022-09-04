@@ -1,0 +1,16 @@
+.close{
+    background-color: transparent;
+    border: none;
+    position: relative;
+    left: 460px;
+}
+
+.close:hover{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .close{
+    left: 280px;
+  }
+}

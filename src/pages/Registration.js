@@ -4,6 +4,7 @@ import styles from './Registration.module.css';
 import Logo from '../components/UI/Logo';
 import FormWrapper from '../components/Helper/FormWrapper';
 import AuthForm from '../components/Authorization/AuthForm';
+import Modal from '../components/UI/Modal';
 import axios from 'axios';
 
 const Registration = () => {
@@ -82,7 +83,6 @@ const Registration = () => {
   }
 
   const formSubmitHandler = (event) => {
-    event.preventDefault();
     axios
       .post('/register', {
         username: usernameInput,
@@ -99,7 +99,10 @@ const Registration = () => {
           setErrorMessage('Username already exist.');
         } else {
           console.log('Submitted', response.config.data);
-          setRegistrationSuccess(true);
+          setErrorMessage('Registered Successfully');
+          setTimeout(() => {
+            setRegistrationSuccess(true);
+          }, 5000);
         }
       })
       .catch((error) => console.log(error));
@@ -160,6 +163,7 @@ const Registration = () => {
               Must include:{' '}
               <ul>
                 <li>Uppercase and lowercase characters</li>
+                <li>Numbers</li>
                 <li>8 - 16 characters long</li>
               </ul>
             </div>
@@ -182,8 +186,10 @@ const Registration = () => {
           >
             Register
           </button>
-          {!registrationSuccess && (
+          {!registrationSuccess ? (
             <h3 className={styles.error}>{errorMessage}</h3>
+          ) : (
+            <h3 className={styles.success}>{errorMessage}</h3>
           )}
           <div className={styles.links}>
             <a href="/login">
